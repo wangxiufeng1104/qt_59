@@ -1,2 +1,6 @@
 build*
 res/
+Makefile
+Makefile.*
+debug/*
+.qmake.stash
