@@ -6,6 +6,14 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    connect(ui->sliderRed, SIGNAL(valueChanged(int)),
+            this, SLOT(slider_color_valueCHanged(int)));
+    connect(ui->sliderBlue, SIGNAL(valueChanged(int)),
+            this, SLOT(slider_color_valueCHanged(int)));
+    connect(ui->sliderGreen, SIGNAL(valueChanged(int)),
+            this, SLOT(slider_color_valueCHanged(int)));
+    connect(ui->sliderAlpha, SIGNAL(valueChanged(int)),
+            this, SLOT(slider_color_valueCHanged(int)));
 }
 
 Widget::~Widget()
@@ -102,7 +110,6 @@ void Widget::on_btnLeft_clicked()
 {
     QString str1,str2;
     str1 = ui->comboBox->currentText();
-    int cnt = str1.size();
     int v = ui->spinBox->value();
     // str从左取v个字节
     str2 = str1.left(v);
@@ -235,4 +242,106 @@ void Widget::on_btnIsEmpty_clicked()
     int N = str2.isEmpty();
     ui->spinBox->setValue(N);
     ui->label_10->setText("isEmpty()");
+}
+
+void Widget::on_btnCalculate_2_clicked()
+{
+    double num = ui->spinBox_2->value();//读取数量
+    double price = ui->doubleSpinBox->value();// 读取单价
+    double total = num * price;
+    ui->doubleSpinBox_2->setValue(total);
+}
+
+void Widget::on_btnDecimal_2_clicked()
+{
+    // 读取十进制数，转换为其他进制
+    int val = ui->spinBox_3->value();
+
+    ui->spinBox_4->setValue(val);
+
+    ui->spinBox_5->setValue(val);
+}
+
+void Widget::on_btnBinary_2_clicked()
+{
+    // 读取二进制数，转换为其他进制
+    int val = ui->spinBox_4->value();
+
+    ui->spinBox_3->setValue(val);
+
+    ui->spinBox_5->setValue(val);
+}
+
+void Widget::on_btnHex_2_clicked()
+{
+    // 读取十六进制数，转换为其他进制
+    int val = ui->spinBox_5->value();
+
+    ui->spinBox_4->setValue(val);
+
+    ui->spinBox_3->setValue(val);
+}
+
+void Widget::slider_color_valueCHanged(int value)
+{
+    //拖动Red、Green、Blue 颜色滑动条时设置textEdit的底色
+    Q_UNUSED(value);
+    QColor  color;
+    int R = ui->sliderRed->value();  //读取SliderRed的当前值
+    int G = ui->sliderGreen->value();//读取 SliderGreen 的当前值
+    int B = ui->sliderBlue->value();//读取 SliderBlue 的当前值
+    int alpha = ui->sliderAlpha->value();//读取 SliderAlpha 的当前值
+    color.setRgb(R,G,B,alpha); //使用QColor的setRgb()函数 获得颜色
+
+    QPalette pal=ui->textColor->palette();//获取textEdit原有的 palette
+    pal.setColor(QPalette::Base,color); //设置palette的基色（即背景色）
+
+    ui->textColor->setPalette(pal);//设置为textEdit的palette,改变textEdit的底色
+}
+
+void Widget::on_sliderRed_2_valueChanged(int value)
+{
+    ui->horizontalScrollBar->setValue(value);
+    ui->progressBar->setValue(value);
+}
+
+void Widget::on_horizontalScrollBar_valueChanged(int value)
+{
+    ui->progressBar->setValue(value);
+    ui->sliderRed_2->setValue(value);
+}
+
+void Widget::on_progressBar_valueChanged(int value)
+{
+    ui->horizontalScrollBar->setValue(value);
+    ui->sliderRed_2->setValue(value);
+}
+
+void Widget::on_dial_valueChanged(int value)
+{
+    ui->lcdNumber->display(value);
+}
+
+void Widget::on_radioButton_clicked()
+{
+    ui->lcdNumber->setDigitCount(3);
+    ui->lcdNumber->setDecMode();
+}
+
+void Widget::on_radioButton_2_clicked()
+{
+    ui->lcdNumber->setDigitCount(8);
+    ui->lcdNumber->setBinMode();
+}
+
+void Widget::on_radioButton_4_clicked()
+{
+    ui->lcdNumber->setDigitCount(4);
+    ui->lcdNumber->setOctMode();
+}
+
+void Widget::on_radioButton_3_clicked()
+{
+    ui->lcdNumber->setDigitCount(3);
+    ui->lcdNumber->setHexMode();
 }

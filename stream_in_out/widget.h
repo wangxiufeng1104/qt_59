@@ -60,6 +60,32 @@ private slots:
 
     void on_btnIsEmpty_clicked();
 
+    void on_btnCalculate_2_clicked();
+
+    void on_btnDecimal_2_clicked();
+
+    void on_btnBinary_2_clicked();
+
+    void on_btnHex_2_clicked();
+
+    void slider_color_valueCHanged(int value);
+
+    void on_sliderRed_2_valueChanged(int value);
+
+    void on_horizontalScrollBar_valueChanged(int value);
+
+    void on_progressBar_valueChanged(int value);
+
+    void on_dial_valueChanged(int value);
+
+    void on_radioButton_clicked();
+
+    void on_radioButton_2_clicked();
+
+    void on_radioButton_4_clicked();
+
+    void on_radioButton_3_clicked();
+
 private:
     Ui::Widget *ui;
 };
