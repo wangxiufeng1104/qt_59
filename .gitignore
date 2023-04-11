@@ -4,3 +4,4 @@ Makefile
 Makefile.*
 debug/*
 .qmake.stash
+*.pro.user
